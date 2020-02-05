@@ -12,17 +12,13 @@ export default class App extends React.Component {
       countries: countries,
       country: "1",
       gender: "male",
-      agree: true
+      agree: true,
+      avatar: null
     };
   }
 
-  onSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
-  };
-
   onChange = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -34,12 +30,28 @@ export default class App extends React.Component {
     });
   };
 
+  onChangeAvatar = e => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      this.setState({
+        avatar: e.target.result
+      });
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   getOptionItems = items => {
     return items.map(item => (
       <option value={item.id} key={item.id}>
         {item.name}
       </option>
     ));
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    console.log(this.state);
   };
 
   render() {
@@ -79,12 +91,16 @@ export default class App extends React.Component {
               </label>
             </div>
           </fieldset>
-          <fieldset className="form-check">
+          <div className="form-group">
+            <label htmlFor="avatar">Avatar</label>
+            <input type="file" className="form-control-file" id="avatar" onChange={this.onChangeAvatar} />
+          </div>
+          <div className="form-check mb-2">
             <input className="form-check-input" type="checkbox" id="agree" name="agree" checked={this.state.agree} value={this.state.agree} onChange={this.onChangeAgree} />
             <label className="form-check-label" htmlFor="agree">
               Agree
             </label>
-          </fieldset>
+          </div>
           <button type="submit" className="btn btn-primary w-100" onClick={this.onSubmit}>
             Submit
           </button>
