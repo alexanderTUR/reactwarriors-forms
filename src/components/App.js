@@ -1,4 +1,5 @@
 import React from "react";
+import Field from "./Field";
 import countries from "../data/countries";
 
 export default class App extends React.Component {
@@ -113,21 +114,9 @@ export default class App extends React.Component {
     return (
       <div className="form-container card">
         <form className="form card-body">
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" className="form-control" placeholder="Enter username" value={this.state.username} onChange={this.onChange} />
-            {this.state.errors.username ? <div className="invalid-feedback">{this.state.errors.username}</div> : null}
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input type="text" name="password" id="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.onChange} />
-            {this.state.errors.password ? <div className="invalid-feedback">{this.state.errors.password}</div> : null}
-          </div>
-          <div className="form-group">
-            <label htmlFor="repeatPassword">Repeat password</label>
-            <input type="text" name="repeatPassword" id="repeatPassword" className="form-control" placeholder="Enter repeat password" value={this.state.repeatPassword} onChange={this.onChange} />
-            {this.state.errors.repeatPassword ? <div className="invalid-feedback">{this.state.errors.repeatPassword}</div> : null}
-          </div>
+          <Field id="username" labelText="Username" type="text" placeholder="Enter username" name="username" value={this.state.username} onChange={this.onChange} error={this.state.errors.username} />
+          <Field id="password" labelText="Password" type="password" placeholder="Enter password" name="password" value={this.state.password} onChange={this.onChange} error={this.state.errors.password} />
+          <Field id="repeatPassword" labelText="Repeat password" type="password" placeholder="Enter repeat password" name="repeatPassword" value={this.state.repeatPassword} onChange={this.onChange} error={this.state.errors.repeatPassword} />
           <div className="form-group">
             <label htmlFor="country">Country</label>
             <select id="country" className="form-control" name="country" value={this.state.country} onChange={this.onChange}>
